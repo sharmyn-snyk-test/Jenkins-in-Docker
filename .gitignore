@@ -1,0 +1,15 @@
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# macOS
+.DS_Store
+
+# IDE files
+.idea/
+.vscode/
+
+# Build artifacts & local files
+*.log
+*.tmp
+.env

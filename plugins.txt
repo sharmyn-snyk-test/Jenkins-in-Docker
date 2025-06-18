@@ -1,0 +1,17 @@
+blueocean-display-url
+blueocean-rest
+blueocean-web
+blueocean-commons
+blueocean-config
+blueocean-dashboard
+blueocean-events
+blueocean-git-pipeline
+blueocean-github-pipeline
+blueocean-i18n
+blueocean-jwt
+blueocean-personalization
+blueocean-pipeline-api-impl
+blueocean-pipeline-editor
+blueocean-rest-impl
+blueocean
+docker-workflow
