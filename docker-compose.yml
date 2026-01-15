@@ -1,43 +1,23 @@
-version: '3.8'
-
-networks:
-  jenkins-net:
-
-volumes:
-  jenkins-data:
-  jenkins-docker-certs:
-
+# Note: The 'version' attribute is removed as it is obsolete in modern Docker Compose
 services:
-  jenkins-docker:
-    image: docker:dind
-    container_name: jenkins-docker
-    privileged: true
-    networks:
-      - jenkins-net
-    environment:
-      - DOCKER_TLS_CERTDIR=/certs
-    volumes:
-      - jenkins-docker-certs:/certs/client
-      - jenkins-data:/var/jenkins_home
-    ports:
-      - "2376:2376"
-
   jenkins-blueocean:
-    build: .
-    image: myjenkins-blueocean:lts
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: jenkins-blueocean
-    restart: on-failure
-    depends_on:
-      - jenkins-docker
-    networks:
-      - jenkins-net
-    environment:
-      - DOCKER_HOST=tcp://jenkins-docker:2376
-      - DOCKER_CERT_PATH=/certs/client
-      - DOCKER_TLS_VERIFY=1
-    volumes:
-      - jenkins-data:/var/jenkins_home
-      - jenkins-docker-certs:/certs/client:ro
+    restart: always
     ports:
       - "8080:8080"
       - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins-net
+
+networks:
+  jenkins-net:
+    driver: bridge
+
+volumes:
+  jenkins_data:
